@@ -34,6 +34,10 @@ npm run test
 
 We have some unit tests to experience OCR.
 
+## How to use with Postman
+
+Soon.
+
 ## Reference
 
 [1] [Github naptha/tesseract.js](https://github.com/naptha/tesseract.js/blob/90466c3b5504a9220ba0ff91ccec22003f72cbd2/docs/api.md#worker-load-language)
