@@ -53,7 +53,7 @@ Here is an example in body of uploading 2 image files.
 | code | code.jpg     | Mandatory |
 | code | bottom-right | Optional  |
 
-Then, `top-left` of `book.png` is recognized and `bottom-right` of `code.jpg` is recognized, respectively.
+Then, `top-left` of `book.png` and `bottom-right` of `code.jpg` are recognized, respectively.
 
 ## Comment
 
