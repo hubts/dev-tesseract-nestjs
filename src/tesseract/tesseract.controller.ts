@@ -11,6 +11,11 @@ export class TesseractController {
     private readonly tesseractService: TesseractService
   ) { }
 
+  /* 
+    Expect:
+    uploaded files are Image, preferably (.PNG) with nice resolution
+    and have (1 : 1.414) ratio in size such like A4 paper.
+  */
   @UseInterceptors(AnyFilesInterceptor({
     fileFilter: imageFileFilter,
     storage: diskStorage({ destination: diskStorageDestination, filename: diskStorageFilename }),
@@ -18,13 +23,24 @@ export class TesseractController {
   }))
   @Post('upload')
   public uploadRealtyFileToRecognize(@Body() requestBody: {}, @UploadedFiles() uploadedImages: Array<Express.Multer.File>) {
-    /* 
-      Expect:
-        uploaded files are Image, preferably (.PNG) with nice resolution
-        and have (1 : 1.414) ratio in size such like A4 paper.
+    /*
+      Form-data has key-value pairs as inputs.
+      Match the 'key's between uploaded file (value) and option (value) of it.
+      Then, specific area in the image would be recognized.
     */
     const uploadedImagesOptions = Object.assign({}, requestBody);
-    return this.tesseractService.getRecognizedTexts(uploadedImages, uploadedImagesOptions);
+    const uploadedImagesArray: Array<{
+      fieldname: string,
+      path: string
+    }> = [];
+    for (const eachImage of uploadedImages) {
+      const eachImageFields = {
+        fieldname: eachImage.fieldname,
+        path: eachImage.path
+      }
+      uploadedImagesArray.push(eachImageFields);
+    }
+    return this.tesseractService.recognizeTextFromImage(uploadedImagesArray, uploadedImagesOptions);
   }
 }
 

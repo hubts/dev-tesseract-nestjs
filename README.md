@@ -1,16 +1,10 @@
-# Image Recognition in NestJS
+# Image Recognition using Tesseract in NestJS
 
 ## Description
 
-OCR (Optical character recognition) is a technology which scans images to recognize texts on them.
+OCR (Optical character recognition) is a technology which scans images to recognize texts of them. `Tesseract` is a library of OCR engine which is a __free__ and also have a __nice recognition__ rate.
 
-`Tesseract` is a library of OCR engine which is a free and also have a nice recognition rate.
-
-Here is an API developed in __NestJS__ based on `Tesseract` in javascript, called `tesseract.js`.
-
-The API contains __uploading image files with 4-area recognition.__
-
-4-area recognition is an image recognition on specific area among `top-left`, `top-right`, `bottom-left`, and `bottom-right`.
+We develop an API in __NestJS__ using `tesseract.js` which is a javascript version of `Tesseract`. The API contains an example usage of `tesseract.js` in language, Korean and English, via uploading image files to be recognized. Furthermore, we develop __specific area recognition__ within 4-area (top-left, top-right, bottom-left, and bottom-right).
 
 ## Dependency
 
@@ -18,7 +12,7 @@ The API contains __uploading image files with 4-area recognition.__
 npm install
 ~~~
 
-Specific dependencies are commented in codes. Follow them.
+Main dependencies are also commented in codes. We can use them.
 
 ## Run
 
@@ -32,11 +26,38 @@ npm run start
 npm run test
 ~~~
 
-We have some unit tests to experience OCR.
+We have some unit tests to experience OCR as examples.
 
-## How to use with Postman
+## Config
 
-Soon.
+See `tesseract.constant.ts`.
+
+## How to use API with Postman
+
+When we start the codes, NestJS server runs with port number 3000 in default. Now, we can `POST` to API.
+
+| Name         | Value                                                        |
+| ------------ | ------------------------------------------------------------ |
+| API          | [http://localhost:3000/tesseract/upload](http://localhost:3000/tesseract/upload) |
+| Method       | POST                                                         |
+| Content-Type | multipart/form-data                                          |
+
+In `Body`, image files must be uploaded and options can be appended. Uploading image files without any options are recognized in all areas. If match `KEY` between of files and data, the data is used as an option.
+
+Here is an example in body of uploading 2 image files.
+
+| Key  | Value        | Mandatory |
+| ---- | ------------ | --------- |
+| book | book.png     | Mandatory |
+| book | top-left     | Optional  |
+| code | code.jpg     | Mandatory |
+| code | bottom-right | Optional  |
+
+Then, `top-left` of `book.png` is recognized and `bottom-right` of `code.jpg` is recognized, respectively.
+
+## Comment
+
+If recognized results are ridiculous, you can doubt resizing of images. 'Resizing' can export incorrect results. It is recommended that you should check the images by adding an extension(.png) to the uploaded file in 'upload' directory.
 
 ## Reference
 
